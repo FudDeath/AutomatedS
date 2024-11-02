@@ -1,8 +1,9 @@
-module FW::mecha_character {
+module mecha_character::mecha_character {
     use sui::display;
     use sui::package;
     use std::string::{Self, String};
-    use suins::direct_setup;
+    use utils::direct_setup::{Self};
+    use suins::suins::{SuiNS};
 
 
     public struct SuiDomain has key {

@@ -4,10 +4,13 @@ version = "0.0.1"
 edition = "2024.beta"
 
 [dependencies]
-Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev ="framework/testnet" }
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev ="mainnet" }
+# suins = { git = "https://github.com/mystenlabs/suins-contracts/", subdir = "packages/suins", rev = "releases/testnet/core/v2" }
+utils = { git = "https://github.com/mystenlabs/suins-contracts/", subdir = "packages/utils", rev = "releases/testnet/core/v2" }
+
 
 [addresses]
-FW = "0x0"
-std = "0x1"
 sui = "0x2"
-suins = "0x7954ae683314ec7e156acbf0c0fc964ce035fd7f456fe7576848226502cfde1b"
+utils = "0x0"
+mecha_character="0x0"
+# suins = "0x22fa05f21b1ad71442491220bb9338f7b7095fe35000ef88d5400d28523bdd93"
