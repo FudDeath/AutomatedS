@@ -42,8 +42,11 @@ module mecha_character::mecha_character {
         ctx: &mut TxContext,
     ) {
         let reg = table::remove(suins_storage, suins_id);
-        transfer::public_transfer(reg, tx_context::sender(ctx));
-    }
+        transfer::public_transfer(reg, tx_context::sender(ctx));    }
+
+    // 1-9 suins id == 1
+    // 10-99 suins id == 2
+    // 100-999 suins id == 3
 
     public fun save_suins_registration(
         suins_storage: &mut Table<u64, SuinsRegistration>,
