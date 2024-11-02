@@ -62,13 +62,11 @@ module mecha_character::mecha_character {
 
     public entry fun set_suins_target(
         suins: &mut SuiNS,
-        wrapper: &mut SuiNSWrapper,
-        suins_id: u64,
+        registration: &SuinsRegistration,
         new_target: Option<address>,
         clock: &Clock,
         _ctx: &mut TxContext
     ) {
-        let registration = table::borrow_mut(&mut wrapper.suins_storage, suins_id);
         direct_setup::set_target_address(suins, registration, new_target, clock);
     }    
 
