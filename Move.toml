@@ -1,0 +1,13 @@
+[package]
+name = "mecha_character"
+version = "0.0.1"
+edition = "2024.beta"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev ="framework/testnet" }
+
+[addresses]
+FW = "0x0"
+std = "0x1"
+sui = "0x2"
+suins = "0x7954ae683314ec7e156acbf0c0fc964ce035fd7f456fe7576848226502cfde1b"
