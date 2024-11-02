@@ -42,8 +42,11 @@ module mecha_character::mecha_character {
         ctx: &mut TxContext,
     ) {
         let reg = table::remove(suins_storage, suins_id);
-        transfer::public_transfer(reg, tx_context::sender(ctx));
-    }
+        transfer::public_transfer(reg, tx_context::sender(ctx));    }
+
+    // 1-9 suins id == 1
+    // 10-99 suins id == 2
+    // 100-999 suins id == 3
 
     public fun save_suins_registration(
         suins_storage: &mut Table<u64, SuinsRegistration>,
@@ -60,7 +63,7 @@ module mecha_character::mecha_character {
         }
     }
 
-    public entry fun set_suins_target(
+    public fun set_suins_target(
         suins: &mut SuiNS,
         wrapper: &mut SuiNSWrapper,
         suins_id: u64,
@@ -70,7 +73,33 @@ module mecha_character::mecha_character {
     ) {
         let registration = table::borrow_mut(&mut wrapper.suins_storage, suins_id);
         direct_setup::set_target_address(suins, registration, new_target, clock);
-    }    
+    }
+
+    public fun mint_example(
+        suins: &mut SuiNS,
+        wrapper: &mut SuiNSWrapper,
+        // suins_id: u64,
+        // new_target: Option<address>,
+        clock: &Clock,
+        ctx: &mut TxContext,
+    ) {
+        let nft_count = 1;
+        let zero_address = @0x0;
+        let one_address = @0x1;
+        let two_address = @0x2;
+        let three_address = @0x3;
+
+        // 1-9 suins id == 1
+        // 10-99 suins id == 2
+        // 100-999 suins id == 3
+
+        if (nft_count == 1) {
+            set_suins_target(suins, wrapper, 1, option::some(one_address), clock, ctx);
+            set_suins_target(suins, wrapper, 2, option::some(zero_address), clock, ctx);
+            set_suins_target(suins, wrapper, 3, option::some(zero_address), clock, ctx);
+        }
+
+    }
 
 
     // Constants for trait URLs
