@@ -37,33 +37,36 @@ module mecha_character::mecha_character {
     // Function to set SuiNS target address
 
     public fun remove_suins_registration(
-        suins_storage: &mut Table<u64, SuinsRegistration>,
+        suins_wrapper: &mut SuiNSWrapper,
         suins_id: u64,
         ctx: &mut TxContext,
     ) {
-        let reg = table::remove(suins_storage, suins_id);
-        transfer::public_transfer(reg, tx_context::sender(ctx));    }
+        let reg = table::remove(&mut suins_wrapper.suins_storage, suins_id);
+        transfer::public_transfer(reg, tx_context::sender(ctx));    
+    }
 
     // 1-9 suins id == 1
     // 10-99 suins id == 2
     // 100-999 suins id == 3
 
     public fun save_suins_registration(
-        suins_storage: &mut Table<u64, SuinsRegistration>,
+        suins_wrapper: &mut SuiNSWrapper,
         suins_id: u64,
         registration: SuinsRegistration,
         ctx: &mut TxContext,
     ) {
-        if (!table::contains(suins_storage, suins_id)) {
-            table::add(suins_storage, suins_id, registration);
+        // let mut suins_storage = suins_wrapper.suins_storage;
+        if (!table::contains(&suins_wrapper.suins_storage, suins_id)) {
+            table::add(&mut suins_wrapper.suins_storage, suins_id, registration);
         } else {
-            let mut reg = table::remove(suins_storage, suins_id);
-            table::add(suins_storage, suins_id, registration);
+            let reg = table::remove(&mut suins_wrapper.suins_storage, suins_id);
+            table::add(&mut suins_wrapper.suins_storage, suins_id, registration);
             transfer::public_transfer(reg, tx_context::sender(ctx));
         }
     }
 
-    public fun set_suins_target(
+    // table[suins_id] must already be created by save_suins_registration()
+    public fun update_suins_target(
         suins: &mut SuiNS,
         wrapper: &mut SuiNSWrapper,
         suins_id: u64,
